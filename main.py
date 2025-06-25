@@ -1,8 +1,13 @@
 import pygame
 
+# Screen variables
 width = 800
 height = 600
 tile_size = 30
+
+# Colors
+background_color = (60, 61, 48)
+grid_line_color = (70, 71, 54)
 
 # Initialize pygame
 pygame.init()
@@ -17,13 +22,13 @@ pygame.display.set_icon(icon)
 
 def draw_grid(tile_size):
     # Add a background color
-    window.fill((60, 61, 48))
+    window.fill(background_color)
 
     for x in range(tile_size, width, tile_size):
-        pygame.draw.line(window, (255, 255, 255), (x, 0), (x, height))
+        pygame.draw.line(window, grid_line_color, (x, 0), (x, height))
 
     for y in range(tile_size, height, tile_size):
-        pygame.draw.line(window, (255, 255, 255), (0, y), (width, y))
+        pygame.draw.line(window, grid_line_color, (0, y), (width, y))
 
 
 # Make sure the window stays on the screen.
