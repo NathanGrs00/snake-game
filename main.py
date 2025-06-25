@@ -1,4 +1,5 @@
 import pygame
+from snake import Snake
 
 # Screen variables
 width = 810
@@ -8,6 +9,7 @@ tile_size = 30
 # Colors
 background_color = (60, 61, 48)
 grid_line_color = (70, 71, 54)
+snake_color = (131, 135, 73)
 
 # Initialize pygame
 pygame.init()
@@ -31,11 +33,15 @@ def draw_grid():
     for y in range(tile_size, height, tile_size):
         pygame.draw.line(window, grid_line_color, (0, y), (width, y))
 
+snake = Snake(0,0, snake_color, tile_size)
+
 # Make sure the window stays on the screen.
 running = True
 while running:
     # Draw the grid
     draw_grid()
+
+    snake.update(tile_size, window)
 
     for event in pygame.event.get():
         # Check for quit event
