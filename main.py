@@ -1,6 +1,11 @@
 import pygame
 from snake import Snake
 
+# Clock to control the frame rate
+clock = pygame.time.Clock()
+# Set the frame rate
+frame_rate = 10
+
 # Screen variables
 width = 810
 height = 600
@@ -48,5 +53,21 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+    # Check for key presses
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_ESCAPE]:
+        running = False
+    if keys[pygame.K_q]:
+        running = False
+    if keys[pygame.K_LEFT]:
+        snake.x -= 1
+    if keys[pygame.K_RIGHT]:
+        snake.x += 1
+    if keys[pygame.K_UP]:
+        snake.y -= 1
+    if keys[pygame.K_DOWN]:
+        snake.y += 1
+
     # Update the display
     pygame.display.update()
+    clock.tick(frame_rate)
