@@ -1,1 +1,1 @@
-class Food:
+class Food(x, y, color):
