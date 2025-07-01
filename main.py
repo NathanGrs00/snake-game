@@ -1,5 +1,6 @@
 import pygame
 from snake import Snake
+from food import Food
 
 # Clock to control the frame rate
 clock = pygame.time.Clock()
@@ -15,10 +16,15 @@ tile_size = 30
 background_color = (60, 61, 48)
 grid_line_color = (70, 71, 54)
 snake_color = (131, 135, 73)
+food_color = (200, 50, 50)
 
 # Initialize pygame
 pygame.init()
 direction = 'RIGHT'  # Initial direction of the snake
+snake = Snake(0,0, snake_color, tile_size)
+# Create food object
+food = Food(0,0, food_color, tile_size)
+food.spawn(width, height, snake.body)
 
 # Create a window
 window = pygame.display.set_mode((width, height))
@@ -38,8 +44,6 @@ def draw_grid():
     # Horizontal lines
     for y in range(tile_size, height, tile_size):
         pygame.draw.line(window, grid_line_color, (0, y), (width, y))
-
-snake = Snake(0,0, snake_color, tile_size)
 
 # Make sure the window stays on the screen.
 running = True
@@ -61,20 +65,27 @@ while running:
             elif event.key == pygame.K_ESCAPE or event.key == pygame.K_q:
                 running = False
 
-    # Move snake based on direction
-    if direction == 'LEFT':
-        snake.x -= 1
-    elif direction == 'RIGHT':
-        snake.x += 1
-    elif direction == 'UP':
-        snake.y -= 1
-    elif direction == 'DOWN':
-        snake.y += 1
+    # Move the snake
+    snake.move(direction)
 
-    if snake.x < 0 or snake.x >= width // tile_size or snake.y < 0 or snake.y >= height // tile_size:
-        #TODO: Implement game over logic
+    # Get head position
+    head_x, head_y = snake.body[0]
+
+    # Check for collision with window borders
+    if head_x < 0 or head_x >= width // tile_size or head_y < 0 or head_y >= height // tile_size:
         running = False
 
-    snake.update(tile_size, window)
+    # Check if snake collides with itself
+    if (head_x, head_y) in snake.body[1:]:
+        running = False
+
+    # Check if snake eats the food
+    if head_x == food.x and head_y == food.y:
+        food.spawn(width, height, snake.body)
+        snake.grow = True
+
+    snake.update(window)
+    food.draw(window)
+
     pygame.display.update()
     clock.tick(frame_rate)
