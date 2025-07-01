@@ -66,21 +66,26 @@ while running:
             elif event.key == pygame.K_ESCAPE or event.key == pygame.K_q:
                 running = False
 
-    # Move snake based on direction
-    if direction == 'LEFT':
-        snake.x -= 1
-    elif direction == 'RIGHT':
-        snake.x += 1
-    elif direction == 'UP':
-        snake.y -= 1
-    elif direction == 'DOWN':
-        snake.y += 1
+    # Move the snake
+    snake.move(direction)
 
-    if snake.x < 0 or snake.x >= width // tile_size or snake.y < 0 or snake.y >= height // tile_size:
-        #TODO: Implement game over logic
+    # Get head position
+    head_x, head_y = snake.body[0]
+
+    # Check for collision with window borders
+    if head_x < 0 or head_x >= width // tile_size or head_y < 0 or head_y >= height // tile_size:
         running = False
 
-    snake.update(tile_size, window)
+    # Check if snake collides with itself
+    if (head_x, head_y) in snake.body[1:]:
+        running = False
+
+    # Check if snake eats the food
+    if head_x == food.x and head_y == food.y:
+        food.spawn(width, height)
+        snake.grow = True
+
+    snake.update(window)
     food.draw(window)
 
     pygame.display.update()
