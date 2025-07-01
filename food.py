@@ -1,5 +1,19 @@
-class Food(x, y, color):
+import pygame
+import random
 
-def __init__:
+class Food:
+    def __init__(self, x, y, color, tile_size):
+        self.x = x
+        self.y = y
+        self.color = color
+        self.tile_size = tile_size
+        self.image = pygame.Surface((tile_size, tile_size))
 
-def spawn:
+    def spawn(self, width, height):
+        self.x = random.randint(0, (width // self.tile_size) - 1)
+        self.y = random.randint(0, (height // self.tile_size) - 1)
+
+    def draw(self, window):
+        self.image.fill(self.color)
+        rect = self.image.get_rect(topleft=(self.x * self.tile_size, self.y * self.tile_size))
+        window.blit(self.image, rect)

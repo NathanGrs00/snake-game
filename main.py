@@ -1,5 +1,6 @@
 import pygame
 from snake import Snake
+from food import Food
 
 # Clock to control the frame rate
 clock = pygame.time.Clock()
@@ -15,10 +16,14 @@ tile_size = 30
 background_color = (60, 61, 48)
 grid_line_color = (70, 71, 54)
 snake_color = (131, 135, 73)
+food_color = (200, 50, 50)
 
 # Initialize pygame
 pygame.init()
 direction = 'RIGHT'  # Initial direction of the snake
+# Create food object
+food = Food(0,0, food_color, tile_size)
+food.spawn(width, height)
 
 # Create a window
 window = pygame.display.set_mode((width, height))
@@ -76,5 +81,7 @@ while running:
         running = False
 
     snake.update(tile_size, window)
+    food.draw(window)
+
     pygame.display.update()
     clock.tick(frame_rate)
