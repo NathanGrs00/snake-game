@@ -9,9 +9,12 @@ class Food:
         self.tile_size = tile_size
         self.image = pygame.Surface((tile_size, tile_size))
 
-    def spawn(self, width, height):
-        self.x = random.randint(0, (width // self.tile_size) - 1)
-        self.y = random.randint(0, (height // self.tile_size) - 1)
+    def spawn(self, width, height, snake_body):
+        while True:
+            self.x = random.randint(0, (width // self.tile_size) - 1)
+            self.y = random.randint(0, (height // self.tile_size) - 1)
+            if (self.x, self.y) not in snake_body:
+                break
 
     def draw(self, window):
         self.image.fill(self.color)

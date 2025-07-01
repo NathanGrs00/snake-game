@@ -21,9 +21,10 @@ food_color = (200, 50, 50)
 # Initialize pygame
 pygame.init()
 direction = 'RIGHT'  # Initial direction of the snake
+snake = Snake(0,0, snake_color, tile_size)
 # Create food object
 food = Food(0,0, food_color, tile_size)
-food.spawn(width, height)
+food.spawn(width, height, snake.body)
 
 # Create a window
 window = pygame.display.set_mode((width, height))
@@ -43,8 +44,6 @@ def draw_grid():
     # Horizontal lines
     for y in range(tile_size, height, tile_size):
         pygame.draw.line(window, grid_line_color, (0, y), (width, y))
-
-snake = Snake(0,0, snake_color, tile_size)
 
 # Make sure the window stays on the screen.
 running = True
@@ -82,7 +81,7 @@ while running:
 
     # Check if snake eats the food
     if head_x == food.x and head_y == food.y:
-        food.spawn(width, height)
+        food.spawn(width, height, snake.body)
         snake.grow = True
 
     snake.update(window)
