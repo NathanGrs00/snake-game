@@ -1,4 +1,5 @@
 import pygame
+from menu import main_menu
 from snake import Snake
 from food import Food
 
@@ -33,6 +34,8 @@ pygame.display.set_caption('Snake')
 # Load an icon for the window.
 icon = pygame.image.load('ic_snake.png')
 pygame.display.set_icon(icon)
+
+main_menu(window, width, height)
 
 def draw_grid():
     # Add a background color
