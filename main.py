@@ -35,7 +35,7 @@ pygame.display.set_caption('Snake')
 icon = pygame.image.load('ic_snake.png')
 pygame.display.set_icon(icon)
 
-main_menu(window, width, height)
+main_menu(window, width)
 
 def draw_grid():
     # Add a background color
