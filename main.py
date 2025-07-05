@@ -1,5 +1,6 @@
 import pygame
 from menu import main_menu
+from gameover import game_over_screen
 from snake import Snake
 from food import Food
 
@@ -55,7 +56,7 @@ while running:
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
+            game_over_screen(window, width, height)
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT and direction != 'RIGHT':
                 direction = 'LEFT'
@@ -66,7 +67,7 @@ while running:
             elif event.key == pygame.K_DOWN and direction != 'UP':
                 direction = 'DOWN'
             elif event.key == pygame.K_ESCAPE or event.key == pygame.K_q:
-                running = False
+                game_over_screen(window, width, height)
 
     # Move the snake
     snake.move(direction)
@@ -76,11 +77,11 @@ while running:
 
     # Check for collision with window borders
     if head_x < 0 or head_x >= width // tile_size or head_y < 0 or head_y >= height // tile_size:
-        running = False
+        game_over_screen(window, width, height)
 
     # Check if snake collides with itself
     if (head_x, head_y) in snake.body[1:]:
-        running = False
+        game_over_screen(window, width, height)
 
     # Check if snake eats the food
     if head_x == food.x and head_y == food.y:
