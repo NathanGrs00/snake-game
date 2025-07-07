@@ -16,7 +16,7 @@ This is a simple Snake game implemented in Python. You can control the snake usi
 ## Download and Run
 
 No need to install Python or any dependencies!  
-You can download the executable (.exe) from the [Releases](https://github.com/yourusername/snake-game/releases) page and run it directly on Windows.
+You can download the executable (.exe) from the [Releases](https://github.com/NathanGrs00/snake-game/releases) page and run it directly on Windows.
 
 ## License
 
