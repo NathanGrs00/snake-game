@@ -16,6 +16,6 @@ def main_menu(window, width):
         pygame.display.update()
         if wait_for_key({
             pygame.K_SPACE: (lambda: True),
-            pygame.K_q: (lambda: sys.exit())
+            pygame.K_q: (lambda: (pygame.quit(), sys.exit()))
         }):
             break
