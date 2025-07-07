@@ -1,5 +1,6 @@
 import pygame
 import sys
+from helpers import wait_for_key
 
 def main_menu(window, width):
     menu_running = True
@@ -13,13 +14,8 @@ def main_menu(window, width):
         window.blit(start, (width // 2 - start.get_width() // 2, 300))
         window.blit(quit_, (width // 2 - quit_.get_width() // 2, 400))
         pygame.display.update()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    menu_running = False
-                elif event.key == pygame.K_q:
-                    pygame.quit()
-                    sys.exit()
+        if wait_for_key({
+            pygame.K_SPACE: (lambda: True),
+            pygame.K_q: (lambda: (pygame.quit(), sys.exit()))
+        }):
+            break
