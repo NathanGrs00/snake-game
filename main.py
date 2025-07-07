@@ -1,5 +1,7 @@
 import pygame
 import sys
+
+from helpers import resource_path
 from menu import main_menu
 from gameover import game_over_screen
 from snake import Snake
@@ -26,7 +28,8 @@ pygame.init()
 # Create a window
 window = pygame.display.set_mode((width, height))
 pygame.display.set_caption('Snake')
-icon = pygame.image.load('ic_snake.png')
+icon_path = resource_path("ic_snake.png")
+icon = pygame.image.load(icon_path)
 pygame.display.set_icon(icon)
 
 def draw_grid():
